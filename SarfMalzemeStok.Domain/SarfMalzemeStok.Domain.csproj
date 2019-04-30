@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190308140618_initial.cs" />
+    <Compile Remove="Migrations\20190308140957_initial.cs" />
+    <Compile Remove="Migrations\20190311071432_initial-V1.cs" />
+    <Compile Remove="Migrations\20190311071839_initial-V1.cs" />
+    <Compile Remove="Migrations\20190311072514_initial.cs" />
+    <Compile Remove="Migrations\20190311094411_initial.cs" />
+    <Compile Remove="Migrations\20190315110932_initial.cs" />
+    <Compile Remove="Migrations\20190315112247_initial.cs" />
+    <Compile Remove="Migrations\20190315114707_initial.cs" />
+    <Compile Remove="Migrations\20190315124906_initial.cs" />
+    <Compile Remove="Migrations\20190315130528_initial.cs" />
+    <Compile Remove="Migrations\20190315145235_initial.cs" />
+    <Compile Remove="Migrations\20190316115411_initial.cs" />
+    <Compile Remove="Migrations\20190316122427_initial.cs" />
+    <Compile Remove="Migrations\20190316130822_initial.cs" />
+    <Compile Remove="Migrations\20190316131544_initial.cs" />
+    <Compile Remove="Migrations\20190316132458_initial.cs" />
+    <Compile Remove="Migrations\20190316132810_initial.cs" />
+    <Compile Remove="Migrations\20190316133155_initial.cs" />
+    <Compile Remove="Migrations\20190316134757_initial.cs" />
+    <Compile Remove="Migrations\20190318133757_addforeignkeys.cs" />
+    <Compile Remove="Migrations\20190318134846_addforeignkeys.cs" />
+    <Compile Remove="Migrations\20190319112707_addedData.cs" />
+    <Compile Remove="Migrations\20190319113541_addedData.cs" />
+    <Compile Remove="Migrations\20190319114140_addedData.cs" />
+    <Compile Remove="Migrations\20190319115840_addedData.cs" />
+    <Compile Remove="Migrations\20190319120406_addedData.cs" />
+    <Compile Remove="Migrations\20190319122213_initial.cs" />
+    <Compile Remove="Migrations\20190319124543_initial.cs" />
+    <Compile Remove="Migrations\20190319125114_initial.cs" />
+    <Compile Remove="Migrations\20190319125548_initial.cs" />
+    <Compile Remove="Migrations\20190325151232_addedReports.cs" />
+    <Compile Remove="Migrations\20190325151713_addedReports.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Abp" Version="4.0.2" />
+    <PackageReference Include="Abp.AspNetCore" Version="4.0.2" />
+    <PackageReference Include="Abp.AutoMapper" Version="4.0.2" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="4.0.2" />
+    <PackageReference Include="Abp.EntityFrameworkCore" Version="4.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>

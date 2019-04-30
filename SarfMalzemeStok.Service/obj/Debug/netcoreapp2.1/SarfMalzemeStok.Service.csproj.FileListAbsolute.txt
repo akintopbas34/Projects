@@ -1,0 +1,12 @@
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\bin\Debug\netcoreapp2.1\SarfMalzemeStok.Service.deps.json
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\bin\Debug\netcoreapp2.1\SarfMalzemeStok.Service.dll
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\bin\Debug\netcoreapp2.1\SarfMalzemeStok.Service.pdb
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\bin\Debug\netcoreapp2.1\SarfMalzemeStok.Domain.dll
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\bin\Debug\netcoreapp2.1\SarfMalzemeStok.Domain.pdb
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.csprojAssemblyReference.cache
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.csproj.CoreCompileInputs.cache
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.AssemblyInfoInputs.cache
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.AssemblyInfo.cs
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.csproj.CopyComplete
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.dll
+C:\Users\akin\Desktop\SarfMalzemeStok.v2\SarfMalzemeStok.Service\obj\Debug\netcoreapp2.1\SarfMalzemeStok.Service.pdb
