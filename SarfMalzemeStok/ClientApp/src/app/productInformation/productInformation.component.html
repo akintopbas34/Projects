@@ -1,0 +1,148 @@
+<div class="card mt-2" *ngIf="companyId != 0">
+  <div class="card-header">
+    <legend style="color:gray;font-weight:bold;">Ürün Bilgisi</legend>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-6 border-right">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td style="width: 63%;">
+              <label for="birimmaliyet">Maliyet Sınıflandırması</label>
+            </td>
+            <td>
+              <input type="text" id="birimmaliyet" class="form-control" readonly
+                value="{{ productInformation.material.maliyetSiniflandirmasi }}" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="toplamAcikSiparisMiktari">Toplam Açık Sipariş Miktarı</label>
+            </td>
+            <td>
+              <input type="text" id="toplamAcikSiparisMiktari" class="form-control" readonly
+                value="{{ productInformation.toplamAcikSiparisMiktari }} Adet" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="acikSATMiktari">Açık SAT Miktarı</label>
+            </td>
+            <td>
+              <input type="text" id="acikSATMiktari" class="form-control" readonly
+                value="{{ productInformation.acikSATMiktari }} Adet" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="malzemeOmru">Malzeme Ömrü</label>
+            </td>
+            <td>
+              <ng-container *ngIf="productInformation.material.malzemeninKullanimOmru != 0;
+                  else elseTemplate">
+                <span data-toggle="modal" data-target="#modalMalzemeOmru" class="badge badge-success p-2"
+                  style="cursor:pointer;">Var</span>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <span class="badge badge-danger p-2" style="cursor:pointer;">Yok</span>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td style="width: 65%;">
+              <label for="asgariParti">İmalata Malzemenin Son Veriliş Zamanı</label>
+            </td>
+            <td>
+              <input type="text" id="asgariParti" class="form-control" readonly
+                value="{{productInformation.imalataSonVerilisTarihi | date}}" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="sabitParti">Dahili Üretim Süresi</label>
+            </td>
+            <td>
+              <input type="text" id="sabitParti" class="form-control" readonly
+                value="{{productInformation.dahiliUretimSuresi}}" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="sabitParti">Toplam Açık Sipariş Tutarı</label>
+            </td>
+            <td>
+              <input type="text" id="sabitParti" class="form-control" readonly
+                value="{{productInformation.toplamAcikSiparisTutari}} $" />
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 63%;">
+              <label for="birimmaliyet">Mal Girişi İşleme Süresi</label>
+            </td>
+            <td>
+              <input type="text" id="birimmaliyet" class="form-control" readonly
+                value="{{productInformation.malGirisiIslemeSuresi}} Saat" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalMalzemeOmru" tabindex="-1" role="dialog" aria-labelledby="modelTableId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Malzemenin Kullanım Ömrü</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Kod</th>
+              <th>Tanım</th>
+              <th>Sipariş No</th>
+              <th>Termin Tarihi</th>
+              <th>Termin Miktarı</th>
+              <th>Batch No</th>
+              <th>Asgari Kalan Süre</th>
+              <th>Teslimat Tarihi</th>
+              <th>Kalite Kontrol Stoğuna Aktarıldığı Tarih</th>
+              <th>Inspector</th>
+              <th>Durum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productGroupConsumptionReports">
+              <td>{{item.kod}}</td>
+              <td>{{item.tanim}}</td>
+              <td>{{item.siparisNo}}</td>
+              <td>{{item.terminTarihi | date}}</td>
+              <td>{{item.terminMiktari}}</td>
+              <td>{{item.batchNo}}</td>
+              <td>{{item.asgariKalanSure}}</td>
+              <td>{{item.teslimatTarihi | date}}</td>
+              <td>{{item.kaliteKontrolTarihi | date}}</td>
+              <td>{{item.inspector}}</td>
+              <td>{{item.durum}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Tamam</button>
+      </div>
+    </div>
+  </div>
+</div>

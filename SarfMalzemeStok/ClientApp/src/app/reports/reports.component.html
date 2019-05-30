@@ -1,0 +1,218 @@
+<span id="raporlar" data-toggle="modal" data-target="#modelRapor" style="cursor:pointer;">
+    <i class="fas fa-file-alt"></i> Raporları Görüntüle
+</span>
+<div class="modal fade" id="modelRapor" tabindex="-1" role="dialog" aria-labelledby="modelRaporTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Raporlar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Siparişlerin Ortalama rec. ınspection işlem süresi (gün
+                                    bazında)-(malzeme bazında)
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <ng-container *ngIf="processingTimeReports.length>0; else elseTemplate">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Malzeme Kodu</th>
+                                                <th>Tanım</th>
+                                                <th>Sipariş No</th>
+                                                <th>Termin</th>
+                                                <th>Teslimat Tarihi</th>
+                                                <th>Kalite Kontrol Stoğuna Aktarıldığı Tarih</th>
+                                                <th>Durum</th>
+                                                <th>Inspector</th>
+                                                <th>Tahditsiz Statüye Aktarıldığı Tarih</th>
+                                                <th>Inspection İşlem Süresi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of processingTimeReports">
+                                                <td>{{item.material.malzemeKodu}}</td>
+                                                <td>{{item.tanim}}</td>
+                                                <td>{{item.siparisNo}}</td>
+                                                <td>{{item.termin}}</td>
+                                                <td>{{item.teslimatTarih | date}}</td>
+                                                <td>{{item.kaliteKontrolTarihi | date}}</td>
+                                                <td>{{item.durum}}</td>
+                                                <td>{{item.inspector}}</td>
+                                                <td>{{item.tahditsizTarih | date}}</td>
+                                                <td>{{item.inspectionSuresi}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    T106 sisteminde parçabaşı kullanım bilgisinde yapılan değişiklikler raporu
+                                    malzeme bazında ilk veri ile son veri karşılaştırılabilir olmalıdır.(History
+                                    bilgisi)
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <ng-container *ngIf="historyInformationReports.length>0; else elseTemplate">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Process</th>
+                                                <th>Part Number</th>
+                                                <th>Desc Part</th>
+                                                <th>Operation</th>
+                                                <th>Workstation</th>
+                                                <th>Consumable (TK)</th>
+                                                <th>Ölçü birimi</th>
+                                                <th>Parçabaşı kullanım miktarı (UPP)</th>
+                                                <th>UPP değişiklik</th>
+                                                <th>Değişikliği Yapan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of historyInformationReports">
+                                                <td>{{item.process}}</td>
+                                                <td>{{item.partNumber}}</td>
+                                                <td>{{item.descPart}}</td>
+                                                <td>{{item.operation}}</td>
+                                                <td>{{item.workStation}}</td>
+                                                <td>{{item.consumable}}</td>
+                                                <td>{{item.olcuBirimi}}</td>
+                                                <td>{{item.upp}}</td>
+                                                <td>{{item.uppDegisiklik}}</td>
+                                                <td>{{item.degisiklikYapan}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    <div class="badge badge-info">Rapor Bulunmamaktadır.</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Mal grubu-Masraf yeri bazında tüketim raporları
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <ng-container *ngIf="productGroupConsumptionReports.length>0; else elseTemplate">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Kod</th>
+                                                <th>Tanım</th>
+                                                <th>Sipariş No</th>
+                                                <th>Termin Tarihi</th>
+                                                <th>Termin Miktarı</th>
+                                                <th>Batch No</th>
+                                                <th>Asgari Kalan Süre</th>
+                                                <th>Teslimat Tarihi</th>
+                                                <th>Kalite Kontrol Stoğuna Aktarıldığı Tarih</th>
+                                                <th>Inspector</th>
+                                                <th>Durum</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of productGroupConsumptionReports">
+                                                <td>{{item.kod}}</td>
+                                                <td>{{item.tanim}}</td>
+                                                <td>{{item.siparisNo}}</td>
+                                                <td>{{item.terminTarihi | date}}</td>
+                                                <td>{{item.terminMiktari}}</td>
+                                                <td>{{item.batchNo}}</td>
+                                                <td>{{item.asgariKalanSure}}</td>
+                                                <td>{{item.teslimatTarihi | date}}</td>
+                                                <td>{{item.kaliteKontrolTarihi | date}}</td>
+                                                <td>{{item.inspector}}</td>
+                                                <td>{{item.durum}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Tezgah- Bekleme Sarf malzeme kaynaklı Günlük rapor (5b takım
+                                    eksiği nedeniyle bekleme) zbosis
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <ng-container
+                                    *ngIf="benchStandbyReports.length>0; else elseTemplate; else elseTemplate">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Work Center</th>
+                                                <th>Masraf Yeri</th>
+                                                <th>Parça</th>
+                                                <th>Operasyon</th>
+                                                <th>Yaka No</th>
+                                                <th>Depo takip sistemindeki ilgili malzeme için talep numarası</th>
+                                                <!--<th>Malzeme talep tarihi(tarih - saat)</th>-->
+                                                <th>5A/5B Sarf malzeme kaynaklı bekleme girildiyse bekleme süresi </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of benchStandbyReports">
+                                                <td>{{item.workCenter}}</td>
+                                                <td>{{item.masrafYeri}}</td>
+                                                <td>{{item.parca}}</td>
+                                                <td>{{item.operation}}</td>
+                                                <td>{{item.yakaNo}}</td>
+                                                <td>{{item.talepNumarasi}}</td>
+                                                <td>{{item.beklemeSuresi}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

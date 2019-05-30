@@ -1,0 +1,35 @@
+<div class="card mt-2" *ngIf="companyId != 0">
+  <div class="card-header">
+    <legend style="color:gray;font-weight:bold;">Son Sipariş Bilgisi</legend>
+  </div>
+  <div class="card-body">
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">Firma Adı</th>
+          <th scope="col">Sipariş Verilme Zamanı</th>
+          <th scope="col">Satın Alınan Birim Fiyatı</th>
+          <th scope="col">Sipariş Sayısı</th>
+          <th scope="col">Sipariş Durumu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ order.companyMaterial.company.firmaAdi }}</td>
+          <td>{{ order.siparisVerilmeZamani | date }}</td>
+          <td>{{ order.companyMaterial.birimMaliyet }}</td>
+          <td>{{ siparisSayisi }}</td>
+          <td>
+            <ng-container *ngIf="order.siparisinGerceklesmeDurumu == false;
+                else elseTemplate">
+              <span class="badge badge-danger p-2">Tedarik Sürecinde</span>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <span class="badge badge-success p-2">Sipariş Tamamlandı</span>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

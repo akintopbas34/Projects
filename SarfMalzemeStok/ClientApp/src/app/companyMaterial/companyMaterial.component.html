@@ -1,0 +1,355 @@
+<div class="card mt-2">
+  <div class="card-header">
+    <legend style="color:gray;font-weight:bold;">Firma Seçimi</legend>
+  </div>
+  <div class="card-body">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <td>
+            <label for="firma">Firma</label>
+          </td>
+          <td>
+            <select class="form-control" id="firma" [(ngModel)]="companyId" (change)="changeCompany()">
+              <option value="0" selected disabled>Firma Seçiniz...</option>
+              <ng-container *ngFor="let item of companies">
+                <option value="{{item.company.id}}">{{item.company.firmaAdi}}</option>
+              </ng-container>
+            </select>
+          </td>
+        </tr>
+        <tr *ngIf="companyId!=0" id="yillikTalep">
+          <td style="width: 30%;">
+            <label for="yilliktalep" data-toggle="modal" data-target="#modalTablo" (click)="showInformation()">Yıllık Talep</label>
+          </td>
+          <td>
+            <input type="text" id="yilliktalep" class="form-control" value="{{dipToplam | number : '1.2-2'}}" readonly>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card mt-2" *ngIf="companyId!=0">
+  <div class="card-header">
+    <legend style="color:gray;font-weight:bold;">Firma Bilgileri</legend>
+  </div>
+  <div class="card-body row">
+    <div class="col-md-6 border-right">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td style="width: 63%;">
+              <label for="birimmaliyet">Birim Maliyet</label>
+            </td>
+            <td>
+              <input type="text" id="birimmaliyet" class="form-control" readonly
+                value="{{companyMaterial.birimMaliyet}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="tedariksuresi">Tedarik Süresi</label>
+            </td>
+            <td>
+              <input type="text" id="tedariksuresi" class="form-control" readonly
+                value="{{companyMaterial.tedarikSuresi}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="eoq">EOQ</label>
+            </td>
+            <td>
+              <input type="text" id="eoq" class="form-control" readonly value="{{EOQ | number : '1.2-2'}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="sabitParti">Sipariş Sayısı</label>
+            </td>
+            <td>
+              <input type="text" id="sabitParti" class="form-control" readonly value="{{siparisSayisi}}">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td style="width: 65%;">
+              <label for="asgariParti">Asgari Parti Büyüklüğü</label>
+            </td>
+            <td>
+              <input type="text" id="asgariParti" class="form-control" readonly
+                value="{{companyMaterial.asgariPartiBuyuklugu}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="sabitParti">Sabit Parti Büyüklüğü</label>
+            </td>
+            <td>
+              <input type="text" id="sabitParti" class="form-control" readonly
+                value="{{companyMaterial.material.sabitPartiBuyuklugu}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="toplamTutar">Toplam Tutar</label>
+            </td>
+            <td>
+              <input type="text" id="toplamTutar" class="form-control" readonly value="{{toplamTutar | number : '1.2-2'}}">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalTablo" tabindex="-1" role="dialog" aria-labelledby="modelTableId" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 100%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Talep Tahmini</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <ng-container *ngIf="productInformation.material.malzemeninKullanimOmru != 0;
+            else elseTemplate">
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn text-center btn-success" type="button" data-toggle="collapse"
+                      data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Malzeme Ömrü Var
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ng-container *ngIf="productInformation.material.malzemeninKullanimOmru != 0; else elseTemplate">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Kod</th>
+                            <th>Tanım</th>
+                            <th>Sipariş No</th>
+                            <th>Termin Tarihi</th>
+                            <th>Termin Miktarı</th>
+                            <th>Batch No</th>
+                            <th>Asgari Kalan Süre</th>
+                            <th>Teslimat Tarihi</th>
+                            <th>Kalite Kontrol Stoğuna Aktarıldığı Tarih</th>
+                            <th>Inspector</th>
+                            <th>Durum</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let report of productGroupConsumptionReports">
+                            <td>{{report.kod}}</td>
+                            <td>{{report.tanim}}</td>
+                            <td>{{report.siparisNo}}</td>
+                            <td>{{report.terminTarihi | date}}</td>
+                            <td>{{report.terminMiktari}}</td>
+                            <td>{{report.batchNo}}</td>
+                            <td>{{report.asgariKalanSure}}</td>
+                            <td>{{report.teslimatTarihi | date}}</td>
+                            <td>{{report.kaliteKontrolTarihi | date}}</td>
+                            <td>{{report.inspector}}</td>
+                            <td>{{report.durum}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <span class="badge badge-danger p-2" style="cursor:pointer;">Ömürsüz Malzeme</span>
+          </ng-template>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <input type="radio" name="forecast" (change)="forecastChanged($event)" value="1">
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
+            <p-chart type="line" [data]="basitDemandChart" responsive=true width="490px" height="300px"
+              [options]="basitOptions" (onDataSelect)="selectData($event)"></p-chart>
+          </div>
+          <div class="col-md-4">
+            <input type="radio" name="forecast" (change)="forecastChanged($event)" value="2">
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
+            <p-chart type="line" [data]="ustelDemandChart" responsive=true width="490px" height="300px"
+              [options]="ustelOptions" (onDataSelect)="selectData($event)"></p-chart>
+          </div>
+          <div class="col-md-4">
+            <input type="radio" name="forecast" (change)="forecastChanged($event)" value="3">
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
+            <p-chart type="line" [data]="agirlikliDemandChart" responsive=true width="490px" height="300px"
+              [options]="agirlikliOptions" (onDataSelect)="selectData($event)"></p-chart>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="tedarikSuresi">Tedarik Süresi</label>
+            <input type="text" id="tedarikSuresi" class="form-control" readonly
+              value="{{companyMaterial.tedarikSuresi}}">
+          </div>
+          <div class="col-md-4">
+            <label for="guvenAraligi">Güven Aralığı %</label>
+            <select name="guvenAraligi" id="guvenAraligi" class="form-control" [(ngModel)]="guvenAraligi">
+              <option value="0">Güven Aralığını Giriniz...</option>
+              <option value="1.645">90</option>
+              <option value="1.96">95</option>
+              <option value="2.58">99</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td style="width: 30%;">
+                    <label for="dipToplam">Dip Toplam</label>
+                  </td>
+                  <td>
+                    <input type="text" id="dipToplam" class="form-control" readonly
+                      value="{{dipToplam | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="siparisMiktari">Sipariş Miktarı</label>
+                  </td>
+                  <td>
+                    <input type="text" id="siparisMiktari" class="form-control" readonly
+                      value="{{siparisMiktari | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="eoq">EOQ</label>
+                  </td>
+                  <td>
+                    <input type="text" id="eoq" class="form-control" readonly value="{{EOQ | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="siparisSayisi">Sipariş Sayısı</label>
+                  </td>
+                  <td>
+                    <input type="text" id="siparisSayisi" class="form-control" readonly value="{{siparisSayisi}}">
+                  </td>
+                </tr>
+                <tr>
+                <tr>
+                  <td>
+                    <label for="emniyetStok">Emniyet Stoğu</label>
+                  </td>
+                  <td>
+                    <input type="text" id="emniyetStok" class="form-control" readonly
+                      value="{{emniyetStok | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="yenidenSiparisSeviyesi">Yeniden Sipariş Seviyesi</label>
+                  </td>
+                  <td>
+                    <input type="text" id="yenidenSiparisSeviyesi" class="form-control" readonly
+                      value="{{yenidenSiparisSeviyesi | number : '1.2-2'}}">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="eldekiStok">Eldeki Stok</label>
+                  </td>
+                  <td>
+                    <input type="text" id="eldekiStok" class="form-control" readonly
+                      value="{{materialStock.stokMiktari | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="acikSatMiktari">Açık SAT Miktarı</label>
+                  </td>
+                  <td>
+                    <input type="text" id="acikSatMiktari" class="form-control" readonly
+                      value="{{productInformation.acikSATMiktari | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="siparisVermeMaliyeti">Sipariş Verme Maliyeti</label>
+                  </td>
+                  <td>
+                    <input type="text" id="siparisVermeMaliyeti" class="form-control" readonly
+                      value="2">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="birimFiyat">Birim Fiyat</label>
+                  </td>
+                  <td>
+                    <input type="text" id="birimFiyat" class="form-control" readonly
+                      value="{{companyMaterial.birimMaliyet | number : '1.2-2'}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="stokTasimaOrani">Stok Taşıma Oranı</label>
+                  </td>
+                  <td>
+                    <input type="text" id="siparisVermeMaliyeti" class="form-control" [(ngModel)]="stokTasimaOrani"
+                      (change)="calculateEOQ($event.target.value)" value="">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="showMessages()">Tamam</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-materialStock *ngIf="companyId!=0" [materialId]='materialId'></app-materialStock>
+
+<!--
+<tr *ngFor="let item of productGroupConsumptionReports">
+                                            <td>{{item.kod}}</td>
+                                            <td>{{item.tanim}}</td>
+                                            <td>{{item.siparisNo}}</td>
+                                            <td>{{item.terminTarihi | date}}</td>
+                                            <td>{{item.terminMiktari}}</td>
+                                            <td>{{item.batchNo}}</td>
+                                            <td>{{item.asgariKalanSure}}</td>
+                                            <td>{{item.teslimatTarihi | date}}</td>
+                                            <td>{{item.kaliteKontrolTarihi | date}}</td>
+                                            <td>{{item.inspector}}</td>
+                                            <td>{{item.durum}}</td>
+                                        </tr>
+-->

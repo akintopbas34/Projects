@@ -1,0 +1,188 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <legend style="color:gray;font-weight:bold;">Malzeme Bilgisi</legend>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="MalzemeKodu">Malzeme Kodu</label>
+              <select name="MalzemeKodu" id="MalzemeKodu" class="form-control" [(ngModel)]="materialId" (change)="changeMaterial()">
+                <option value="0">Malzeme Kodunu Giriniz...</option>
+                <ng-container *ngFor="let item of materials">
+                  <option value="{{ item.id }}">{{ item.malzemeKodu }}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="MalzemeAdi">Malzeme Adı</label>
+              <select name="MalzemeAdi" id="MalzemeAdi" class="form-control" [(ngModel)]="materialId" (change)="changeMaterial()">
+                <option value="0">Malzeme Adı Giriniz...</option>
+                <ng-container *ngFor="let item of materials">
+                  <option value="{{ item.id }}">{{ item.malzemeAdi }}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <div class="form-group">
+              <button class="btn btn-primary form-control" (click)="Getir()" *ngIf="materialId != 0">
+                Getir
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!--       
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="mipSorumlusu">MIP Sorumlusu</label>
+              <select name="mipSorumlusu" id="mipSorumlusu" class="form-control">
+                <option value="0">MIP Sorumlusunu Giriniz...</option>
+                <option value="1">Sorumlu 1</option>
+                <option value="2">Sorumlu 2</option>
+                <option value="3">Sorumlu 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="satinAlmaGrubu">Satın Alma Grubu</label>
+              <select name="satinAlmaGrubu" id="satinAlmaGrubu" class="form-control">
+                <option value="0">Satın Alma Grubunu Giriniz...</option>
+                <option value="1">Satın alma grubu 1</option>
+                <option value="2">Satın alma grubu 2</option>
+                <option value="3">Satın alma grubu 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="satinAlmaGrubu">MIP Karakteristiği</label>
+              <select name="satinAlmaGrubu" id="satinAlmaGrubu" class="form-control">
+                <option value="0">MIP Karakteristiğini Giriniz...</option>
+                <option value="1">Satın alma grubu 1</option>
+                <option value="2">Satın alma grubu 2</option>
+                <option value="3">Satın alma grubu 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="satinAlmaGrubu">Üretim Depo Yeri</label>
+              <select name="satinAlmaGrubu" id="satinAlmaGrubu" class="form-control">
+                <option value="0">Üretim Depo Yerini Giriniz...</option>
+                <option value="1">Satın alma grubu 1</option>
+                <option value="2">Satın alma grubu 2</option>
+                <option value="3">Satın alma grubu 3</option>
+              </select>
+            </div>
+          </div>
+        </div>     
+-->
+      </div>
+    </div>
+    <app-companyMaterial *ngIf="buttonClicked" [materialId]="materialId"></app-companyMaterial>
+  </div>
+  <div class="col-md-4">
+    <div *ngIf="buttonClicked && alternativeMaterials">
+      <h5>Alternatif Malzeme Listesi</h5>
+      <select size="4" name="" id="alternatif" class="form-control">
+        <ng-container *ngFor="let item of alternativeMaterials">
+          <option value="{{ item.material2.id }}" (click)="alternativeMaterialModal(item.material2.teknikResim)"
+            data-toggle="modal" data-target="#modalId">{{ item.material2.malzemeAdi }}</option>
+        </ng-container>
+      </select>
+      <div class="mt-3">
+        <h5>Teknik Resim</h5>
+        <span class="mt-3" (click)="materialModal()" data-toggle="modal" data-target="#modalId"
+          style="margin: 0; padding: 0;">
+          <img src="{{ materialById.teknikResim }}" alt="" class="w-100" style="cursor: pointer;" />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" *ngIf="buttonClicked">
+    <app-order *ngIf="companyId != 0" [materialId]="materialId"></app-order>
+    <app-productInformation [materialId]="materialId"></app-productInformation>
+  </div>
+  <div class="col-md-12 mt-5 mb-3" id="siparisVer" *ngIf="buttonClicked">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <td style="width: 65%;">
+            <app-reports [materialId]="materialId"></app-reports>
+          </td>
+          <td class="text-right">
+            <button class="btn btn-primary btn-lg mb-5" data-toggle="modal" data-target="#malzemeHakkindaNotlar">
+              Malzeme Hakkında Notlar
+            </button>
+            <button class="btn btn-primary btn-lg" id="btnSiparis" data-toggle="modal" data-target="#modelMesajGonder">
+              Depocuya Mesaj Gönder
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--MODALS-->
+<div class="modal fade" id="malzemeHakkindaNotlar" tabindex="-1" role="dialog" aria-labelledby="malzemeHakkindaNotlar"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 50%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Malzeme Hakkında Notlar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea name="malzemeHakkindaNotlar" id="message" rows="5" class="form-control" readonly
+          maxlength="100">{{materialById.malzemeHakkindaNotlar}}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Tamam
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modelMesajGonder" tabindex="-1" role="dialog" aria-labelledby="modelMesajId"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 50%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mesaj</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-3" placeholder="Konu" />
+        <textarea name="message" id="message" rows="5" class="form-control" placeholder="Mesajınızı yazınız"
+          maxlength="60"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          İptal
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Gönder
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

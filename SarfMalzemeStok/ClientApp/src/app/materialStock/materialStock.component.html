@@ -1,0 +1,43 @@
+<div class="card mt-2">
+    <div class="card-header">
+        <legend style="color:gray;font-weight:bold;">Stok Bilgisi</legend>
+    </div>
+    <div class="card-body">
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td style="width: 30%;">
+                        <label for="stokMiktari">Stok Miktarı</label>
+                    </td>
+                    <td>
+                        <input type="text" id="stokMiktari" class="form-control" readonly value="{{materialStock.stokMiktari}} Adet">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 30%;">
+                        <label for="tedarikMiktari">Tedarik Sürecindeki Stok Miktarı</label>
+                    </td>
+                    <td>
+                        <input type="text" id="tedarikMiktari" class="form-control" readonly value="{{materialStock.tedarikAsamasindakiMiktar}} Adet">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="emniyetStok">Emniyet Stoğu</label>
+                    </td>
+                    <td>
+                        <input type="text" id="emniyetStok" class="form-control" readonly value="{{materialStock.material.emniyetStok}} Adet">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="yenidenSiparisSeviyesi">Yeniden Sipariş Seviyesi</label>
+                    </td>
+                    <td>
+                        <input type="text" id="yenidenSiparisSeviyesi" class="form-control" readonly value="{{materialStock.material.yenidenSiparisSeviyesi}} Adet">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
